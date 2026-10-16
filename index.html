@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Voting OSIS - SMKN 1 Blega</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h2>E-VOTING OSIS 2026</h2>
+        <p>SMKN 1 Blega | Jujur, Adil, dan Rahasia</p>
+    </header>
+
+    <!-- AREA 1: FORM LOGIN DATA DIRI SISWA -->
+    <div class="login-container" id="layar-login">
+        <h3>Verifikasi Data Pemilih</h3>
+        <p class="sub-login">Silakan isi data diri Anda sebelum memberikan suara.</p>
+        
+        <form onsubmit="prosesLogin(event)">
+            <div class="form-group">
+                <label>Nama Lengkap Siswa</label>
+                <input type="text" id="input-nama" placeholder="Masukkan nama sesuai absen" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Kelas</label>
+                <select id="input-kelas" required>
+                    <option value="">-- Pilih Kelas Anda --</option>
+                    <option value="10 RPL">10 RPL</option>
+                    <option value="11 RPL">11 RPL</option>
+                    <option value="12 RPL">12 RPL</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-login">Masuk ke Bilik Suara</button>
+        </form>
+    </div>
+
+    <!-- AREA 2: BILIK SUARA (Sengaja disembunyikan di awal) -->
+    <div class="kandidat-container sembunyi" id="layar-voting">
+        <div class="welcome-box">
+            <p>Pemilih: <strong id="user-aktif">Nama Siswa</strong> (<span id="kelas-aktif">Kelas</span>)</p>
+        </div>
+
+        <div class="grid-kandidat">
+            <!-- Kandidat 1 -->
+            <div class="card-kandidat">
+                <div class="foto-placeholder">Kandidat 01</div>
+                <h3>Andi & Siti</h3>
+                <p class="visi">"Mewujudkan OSIS yang aktif, kreatif, dan melek teknologi di era digital."</p>
+                <button class="btn-vote" id="btn-01" onclick="kirimSuara('kandidat1')">Vote Paslon 01</button>
+            </div>
+
+            <!-- Kandidat 2 -->
+            <div class="card-kandidat">
+                <div class="foto-placeholder">Kandidat 02</div>
+                <h3>Budi & Rara</h3>
+                <p class="visi">"Menciptakan lingkungan sekolah yang solid, inklusif, dan berprestasi."</p>
+                <button class="btn-vote" id="btn-02" onclick="kirimSuara('kandidat2')">Vote Paslon 02</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AREA 3: PANEL MONITOR RAHASIA ADMIN (Muncul real-time jika password benar) -->
+    <div class="hasil-container sembunyi" id="layar-admin">
+        <div class="admin-header">
+            <h3>PANEL MONITORING ADMIN (REAL-TIME ONLINE)</h3>
+            <button class="btn-tutup-admin" onclick="tutupPanelAdmin()">Keluar Panel</button>
+        </div>
+        
+        <div class="bar-hasil">
+            <span class="label-paslon">Paslon 01:</span>
+            <div class="progress-bg">
+                <div class="progress-bar" id="bar-01" style="width: 0%;">0%</div>
+            </div>
+            <span class="angka-vote">(<span id="suara-01">0</span> Suara)</span>
+        </div>
+
+        <div class="bar-hasil">
+            <span class="label-paslon">Paslon 02:</span>
+            <div class="progress-bg">
+                <div class="progress-bar" id="bar-02" style="width: 0%;">0%</div>
+            </div>
+            <span class="angka-vote">(<span id="suara-02">0</span> Suara)</span>
+        </div>
+
+        <h4 style="margin-top: 30px; margin-bottom: 10px; text-align: left;">Daftar Log Pemilih (Audit):</h4>
+        <table class="tabel-audit">
+            <thead>
+                <tr>
+                    <th>Nama Pemilih</th>
+                    <th>Kelas</th>
+                    <th>Status Sistem</th>
+                </tr>
+            </thead>
+            <tbody id="isiTabelAudit">
+                <!-- Data siswa disuntikkan secara dinamis melalui Firebase oleh script.js -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- TOMBOL LOGIN RAHASIA ADMIN (Ada samar di pojok bawah halaman) -->
+    <div class="admin-gate-wrapper">
+        <button class="btn-admin-gate" onclick="aksesPanelAdmin()">🔑 Login Admin</button>
+    </div>
+
+    <!-- SKRIP DEPENDENSI: Library resmi Google Firebase v8 -->
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
+    
+    <!-- File logika buatan kita sendiri -->
+    <script src="script.js"></script>
+</body>
+</html>
